@@ -1,0 +1,33 @@
+<div class="layout">
+  <div class="slider" id="slider">
+    <ul nz-menu nzMode="inline" class="menu">
+      <li nz-menu-item>
+        <span nz-icon nzType="calendar"></span>
+        <span class="menu-text">Расписание</span>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="desktop"></span>
+        <span class="menu-text">Заявки на мероприятие</span>
+      </li>
+      <li nz-menu-item>
+        <span nz-icon nzType="form"></span>
+        <span class="menu-text">Создать мероприятие</span>
+      </li>
+    </ul>
+    <div class="bottom-menu">
+      <ul nz-menu nzMode="inline">
+        <li nz-menu-item>
+          <span nz-icon nzType="user"></span>
+          <span class="menu-text">Личный кабинет</span>
+        </li>
+        <li nz-menu-item>
+          <span nz-icon nzType="logout"></span>
+          <span class="menu-text">Выход</span>
+        </li>
+      </ul>
+      <button class="hide" nz-button nzType="default" nzShape="circle" id="toggleButton" (click)="toggleSider()">
+        <span nz-icon [nzType]="isCollapsed ? 'right' : 'left'"></span>
+      </button>
+    </div>
+  </div>
+</div>
