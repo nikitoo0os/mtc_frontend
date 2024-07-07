@@ -1,0 +1,51 @@
+<nz-layout>
+  <nz-sider [nzCollapsed]="isCollapsed" (nzCollapse)="onCollapse()">
+    <app-layout (collapse)="isCollapsed = $event"></app-layout>
+  </nz-sider>
+  <nz-layout>
+    <nz-content>
+      <h2>Расписание</h2>
+      <p>Здесь вы можете посмотреть расписание этапов в удобном вам виде</p>
+      <div class="actions">
+        <nz-tabset>
+          <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
+            <ng-template #titleTemplate>
+              <span nz-icon [nzType]="tab.icon" ></span>
+              {{ tab.name }}
+            </ng-template>
+            <!-- Добавьте контент для каждой вкладки -->
+            <div *ngIf="tab.icon === 'calendar'" >
+              <!-- Контент для вкладки 1 -->
+              <p>Это контент для календаря</p>
+            </div>
+            <div *ngIf="tab.icon === 'menu'" >
+              <!-- Контент для вкладки 2 -->
+              <p>Это контент для таблиц</p>
+            </div>
+            <div *ngIf="tab.icon === 'appstore'" >
+              <!-- Контент для вкладки 3 -->
+              <p>Это контент для карточек</p>
+            </div>
+          </nz-tab>
+        </nz-tabset>
+        <div class="btn-container">
+          <button nz-button class="bnt-upload" [nzSize]="size">
+            Выгрузить участников
+            <span nz-icon nzType="download"></span>
+          </button>
+          <button nz-button class="bnt-filter" [nzSize]="size" >
+            Фильтр
+            <span nz-icon nzType="filter"></span>
+          </button>
+        </div>
+      </div>
+      <div class="pagination">
+        <p class="pagination-info">Показано 10 записей из 100</p>
+        <div class="pagination-container">
+          <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+

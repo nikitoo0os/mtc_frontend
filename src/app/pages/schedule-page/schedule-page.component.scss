@@ -1,0 +1,78 @@
+nz-sider {
+  background: #f0f2f5;
+  color: #000000;
+  line-height: 120px;
+}
+
+nz-content {
+
+  margin-top: 2rem;
+  margin-left: 8rem;
+}
+
+nz-button-group {
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+nz-tabset{
+  margin-top: 20px;
+}
+
+.actions{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.btn-container{
+  display: flex;
+  margin-right: 80px;
+  gap: 10px;
+}
+
+.bnt-filter{
+  background-color: #d3d3d3;
+  color: #000000;
+  border-width: 2px;
+  border-color: black;
+}
+.bnt-upload{
+  background-color: #ffffff;
+  color: #000000;
+  border-width: 2px;
+  border-color: black;
+}
+
+.tab-content {
+  border: 2px solid #ccc;
+  padding: 10px;
+}
+.pagination-info {
+  font-weight: 600;
+
+}
+.pagination{
+  position: fixed;
+  bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 75%;
+}
+.pagination-container{
+  display: flex;
+  justify-content: flex-end; /* Выравнивает пагинацию по правому краю */
+  position: fixed;            /* Фиксирует позицию пагинации */
+  bottom: 20px;              /* Отступ от нижнего края */
+  right: 80px;
+
+}
+
+.modal-container {
+  width: 500px;
+  height: 500px;
+  top: 40px
+}
+
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 import {NzContentComponent, NzHeaderComponent, NzLayoutComponent, NzSiderComponent} from "ng-zorro-antd/layout";
 import {NzBreadCrumbComponent, NzBreadCrumbItemComponent} from "ng-zorro-antd/breadcrumb";
 import {NzMenuDirective, NzMenuItemComponent, NzSubMenuComponent} from "ng-zorro-antd/menu";
@@ -29,12 +29,13 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 export class LayoutComponent {
 
   isCollapsed = false;
-
+  @Output() collapse = new EventEmitter<boolean>();
   toggleSider() {
     const slider = document.getElementById('slider');
     if (slider) {
       slider.classList.toggle('collapsed');
       this.isCollapsed = !this.isCollapsed;
+      this.collapse.emit(this.isCollapsed);
     }
   }
 
