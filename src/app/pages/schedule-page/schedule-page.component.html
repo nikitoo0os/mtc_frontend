@@ -1,0 +1,25 @@
+<app-layout (collapse)="isCollapsed = $event"></app-layout>
+<div class="schedule-page">
+  <div class="schedule-page__top">
+    <h2 class="schedule-page__title">Расписание</h2>
+    <p>Здесь вы можете посмотреть расписание этапов в удобном вам виде</p>
+  </div>
+  <div class="schedule-page__controls">
+    <nz-segmented [nzOptions]="optionsSegmented" (nzValueChange)="onSegmentChange($event)"></nz-segmented>
+    <button class="schedule-page__button" nz-button nzType="default">
+      <span nz-icon nzType="download"></span>
+      Выгрузить участников
+    </button>
+    <button class="schedule-page__button" nz-button nzType="default">
+      <span nz-icon nzType="filter"></span>
+      Фильтр
+    </button>
+  </div>
+  <ng-container *ngIf="selectedIndex === 1">
+    <app-timeline-card [cards]="cards" *ngIf="shouldDisplayCardComponent"></app-timeline-card>
+  </ng-container>
+  <div *ngIf="selectedIndex === 0">
+    <!-- Здесь можно разместить компонент для таблицы -->
+    <p>Таблица</p>
+  </div>
+</div>

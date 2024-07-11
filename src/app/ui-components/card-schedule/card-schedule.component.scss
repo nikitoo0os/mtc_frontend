@@ -1,0 +1,81 @@
+.card {
+  display: flex;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  width: 170px;
+  height: 100%;
+  background: white;
+  position: relative;
+
+  &--approved {
+    border: 1px solid #70b2fc;
+  }
+  &--draft {
+    border: 1px solid #a3a3b5;
+  }
+  &__stage-type {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+  }
+  &__speciality {
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    max-width: 140px;
+  }
+  &__time {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+  }
+
+  &__vertical-stripe {
+    width: 4px;
+    height: auto;
+    background-color: #F3AB38;
+    border-radius: 2px;
+    margin-right: 4px;
+
+    &.stripe--approved {
+      background-color: #70b2fc;
+    }
+    &.stripe--draft {
+      background-color: #a3a3b5;
+    }
+  }
+
+  &__flex {
+    display: flex;
+    align-items: center;
+
+    & div:not(:last-child) {
+      margin-right: 12px;
+    }
+
+    &-icon {
+      margin-right: 3px;
+      width: 12px;
+      height: 12px;
+    }
+
+    &-info {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+    }
+  }
+}
+
+.mb0 {
+  margin-bottom: 0;
+}
+.container{
+  display: flex;
+  height: min-content;
+}

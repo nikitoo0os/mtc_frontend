@@ -1,0 +1,21 @@
+<div class="timeline">
+  <div class="timeline__line">
+    <div class="timeline__slot" *ngFor="let time of timeSlots">
+      <span class="timeline__label">{{ time }}</span>
+      <div class="timeline__divider"></div>
+    </div>
+  </div>
+  <div class="timeline__cards">
+    <ng-container *ngFor="let column of columns; let colIndex = index">
+      <div class="timeline__column">
+        <app-card-schedule
+          *ngFor="let card of column"
+          [card]="card"
+          [style.top]="getCardTopPosition(card) + 'px'"
+          [style.height]="getCardHeight(card) + 'px'"
+          class="timeline__position">
+        </app-card-schedule>
+      </div>
+    </ng-container>
+  </div>
+</div>
