@@ -1,78 +1,77 @@
 <app-layout (collapse)="isCollapsed = $event"></app-layout>
-<div nz-row class="mt-4">
-  <div nz-col nzSpan="18" class="block">
+
+<div class="edit-slots-page__columns">
+  <div class="edit-slots-page__column1">
     <h2>Основные параметры</h2>
-    <div class="container">
-      <p class="type">Тип мероприятия</p>
-      <p class="item">Первичная специализированная аккредитация</p>
+    <div class="edit-slots-page__containerType">
+      <p class="edit-slots-page__type">Тип мероприятия</p>
+      <p class="edit-slots-page__item">Первичная специализированная аккредитация</p>
     </div>
-    <div class="container">
-      <p class="type">Вид этапа</p>
-      <p class="item">Оценка практических навыков</p>
+    <div class="edit-slots-page__containerType">
+      <p class="edit-slots-page__type">Вид этапа</p>
+      <p>Оценка практических навыков</p>
     </div>
 
-    <div class="date-container">
-      <p class="item">Дата проведения</p>
-      <div class="margin">
-        <nz-date-picker [(ngModel)]="date" [nzPlaceHolder]="calendar" (ngModelChange)="onChange($event)"></nz-date-picker>
-      </div>
+    <div class="edit-slots-page__date-container">
+      <p class="edit-slots-page__item">Дата проведения</p>
+      <nz-date-picker [(ngModel)]="date" [nzPlaceHolder]="calendar" (ngModelChange)="onChange($event)"></nz-date-picker>
       <nz-time-picker [nzHourStep]="1"  [nzPlaceHolder]="startTime" [nzMinuteStep]="30" [nzSecondStep]="60"></nz-time-picker>
-      <p class="item" >——</p>
+      <div>——</div>
       <nz-time-picker [nzHourStep]="1"  [nzPlaceHolder]="endTime" [nzMinuteStep]="30" [nzSecondStep]="60"></nz-time-picker>
     </div>
   </div>
 
-
-  <div nz-col nzSpan="6" class="block">
+  <div class="edit-slots-page__column2">
     <h2>Ресурсы</h2>
-    <div class="employee-container">
-      <p class="item">Специалист</p>
-      <nz-select style="width: 350px" nzShowSearch nzAllowClear nzPlaceHolder="ФИО Специалиста" [(ngModel)]="selectedValue.specialistResources">
-        <nz-option nzLabel="Иван Иванов" nzValue="Иван Иванов"></nz-option>
-        <nz-option nzLabel="Петр Петров" nzValue="Петр Петров"></nz-option>
-        <nz-option nzLabel="Петр Иванов" nzValue="Петр Иванов"></nz-option>
-      </nz-select>
-      <nz-select style="width: 150px" nzShowSearch nzAllowClear nzPlaceHolder="Вид" [(ngModel)]="selectedValue.typeResources">
-        <nz-option nzLabel="Инженер" nzValue="Инженер"></nz-option>
-        <nz-option nzLabel="Сотрудник УМЦ" nzValue="Сотрудник УМЦ"></nz-option>
-        <nz-option nzLabel="Экзаменатор" nzValue="Экзаменатор"></nz-option>
-      </nz-select>
-    </div>
-    <button class="add-button" nz-button nzType="text"> + Добавить специалиста</button>
+    <div *ngFor="let employee of employees; let i = index">
+      <div class="edit-slots-page__employee-container" [ngClass]="{ 'last': i === employees.length - 1 }">
+        <p class="edit-slots-page__item">Специалист</p>
+        <nz-select class="edit-slots-page__selectFIOResources" nzShowSearch nzAllowClear nzPlaceHolder="ФИО Специалиста" [(ngModel)]="employee.specialistResources">
+          <nz-option *ngFor="let option of specialistResourcesOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+        </nz-select>
 
-    <p class="h3"><b>Локация</b></p>
-    <div class="location-container">
-      <p class="item">Помещение</p>
-      <nz-select style="width: 450px" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.number">
-        <nz-option nzLabel="1" nzValue="1"></nz-option>
-        <nz-option nzLabel="2" nzValue="2"></nz-option>
-        <nz-option nzLabel="3" nzValue="3"></nz-option>
-      </nz-select>
-      <input style="width: 50px" nz-input placeholder="" [(ngModel)]="value" type="number" />
-      <p class="iitem">мест</p>
+        <nz-select class="edit-slots-page__selectPostResources" nzShowSearch nzAllowClear nzPlaceHolder="Вид" [(ngModel)]="employee.typeResources">
+          <nz-option *ngFor="let option of typeResourcesOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+        </nz-select>
+      </div>
     </div>
-    <div class="employee-container">
-      <p class="item">Специалист</p>
-      <nz-select style="width: 350px" nzShowSearch nzAllowClear nzPlaceHolder="ФИО Специалиста" [(ngModel)]="selectedValue.specialist">
-        <nz-option nzLabel="Иван Иванов" nzValue="Иван Иванов"></nz-option>
-        <nz-option nzLabel="Петр Петров" nzValue="Петр Петров"></nz-option>
-        <nz-option nzLabel="Петр Иванов" nzValue="Петр Иванов"></nz-option>
-      </nz-select>
-      <nz-select style="width: 150px" nzShowSearch nzAllowClear nzPlaceHolder="Вид" [(ngModel)]="selectedValue.type">
-        <nz-option nzLabel="Инженер" nzValue="Инженер"></nz-option>
-        <nz-option nzLabel="Сотрудник УМЦ" nzValue="Сотрудник УМЦ"></nz-option>
-        <nz-option nzLabel="Экзаменатор" nzValue="Экзаменатор"></nz-option>
-      </nz-select>
+    <button class="edit-slots-page__add-button" nz-button nzType="text" (click)="addEmployee()"> + Добавить специалиста</button>
+
+    <div *ngFor="let location of locations; let i = index">
+      <p class="h3"><b>Локация</b></p>
+      <div class="edit-slots-page__location-container">
+        <p class="edit-slots-page__item">Помещение</p>
+        <nz-select  class="edit-slots-page__location" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="location.number">
+          <nz-option *ngFor="let option of numberOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+        </nz-select>
+
+        <input style="width: 50px" nz-input placeholder="" [(ngModel)]="location.value" type="number" />
+        <p class="edit-slots-page__item">мест</p>
+      </div>
+      <div *ngFor="let spec of location.specialist; let j = index">
+        <div class="edit-slots-page__employee-container" [ngClass]="{ 'last': j === location.specialist.length - 1 }">
+          <p class="edit-slots-page__iitem">Специалист</p>
+          <nz-select class="edit-slots-page__selectFIO" nzShowSearch nzAllowClear nzPlaceHolder="ФИО Специалиста" [(ngModel)]="spec.specialist">
+            <nz-option *ngFor="let option of specialistResourcesOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+          </nz-select>
+
+          <nz-select class="edit-slots-page__selectPost" nzShowSearch nzAllowClear nzPlaceHolder="Вид" [(ngModel)]="spec.type">
+            <nz-option *ngFor="let option of typeResourcesOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <button class="edit-slots-page__add-button" nz-button nzType="text" (click)="addSpecialist(i)"> + Добавить специалиста</button>
     </div>
-    <button class="add-button" nz-button nzType="text">+ Добавить специалиста</button>
     <br>
-    <button class="add-location-button" nz-button nzType="text">+ Добавить локацию</button>
-  </div>
-  <div class="button-container">
+    <button class="edit-slots-page__add-button" nz-button nzType="text" (click)="addLocation()">+ Добавить локацию</button>
+
+
+    <div class="edit-slots-page__button-container">
+      <button nz-button  nzType="default">Отменить</button>
+      <button nz-button  nzType="default">Сохранить черновик</button>
+      <button nz-button  nzType="primary" disabled>Утвердить</button>
+    </div>
   </div>
 </div>
-<div class="button-container">
-  <button nz-button  nzType="default">Отменить</button>
-  <button nz-button  nzType="default">Сохранить черновик</button>
-  <button nz-button  nzType="primary" disabled>Утвердить</button>
-</div>
+
+

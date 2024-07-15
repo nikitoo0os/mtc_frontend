@@ -8,6 +8,7 @@ import {NzModalComponent} from "ng-zorro-antd/modal";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzTimePickerComponent} from "ng-zorro-antd/time-picker";
 import {LayoutComponent} from "../../ui-components/layout/layout.component";
+import {NgClass, NgForOf} from "@angular/common";
 @Component({
   selector: 'app-edit-slots-page',
   standalone: true,
@@ -22,17 +23,18 @@ import {LayoutComponent} from "../../ui-components/layout/layout.component";
     NzRowDirective,
     NzSelectComponent,
     NzTimePickerComponent,
-    LayoutComponent
+    LayoutComponent,
+    NgForOf,
+    NgClass
   ],
   templateUrl: './edit-slots-page.component.html',
   styleUrl: './edit-slots-page.component.scss'
 })
 export class EditSlotsPageComponent {
   isCollapsed = false;
-  calendar="Выберите дату"
+  calendar="Дата"
   startTime="Начало"
   endTime="Конец"
-  title = 'edit-slots';
   date: any;
   selectedValue: { specialist: string[]; type: string; location:string; specialistResources: string[]; number:string;typeResources:string} = {
     specialistResources: [],
@@ -43,8 +45,58 @@ export class EditSlotsPageComponent {
     typeResources:''
   };
   value: any;
-
   onChange(result: Date): void {
     console.log('onChange: ', result);
+  }
+
+  specialistResourcesOption = [
+    { label: 'Иван Иванов', value: 'Иван Иванов' },
+    { label: 'Петр Петров', value: 'Петр Петров' },
+    { label: 'Петр Иванов', value: 'Петр Иванов' },
+  ];
+
+  specialistOption = [
+    { label: 'Иван Иванов', value: 'Иван Иванов' },
+    { label: 'Петр Петров', value: 'Петр Петров' },
+    { label: 'Петр Иванов', value: 'Петр Иванов' },
+  ];
+
+  typeResourcesOption = [
+    { label: 'Инженер', value: 'Инженер' },
+    { label: 'Сотрудник УМЦ', value: 'Сотрудник УМЦ' },
+    { label: 'Экзаменатор', value: 'Экзаменатор' },
+  ];
+
+  typeOption = [
+    { label: 'Инженер', value: 'Инженер' },
+    { label: 'Сотрудник УМЦ', value: 'Сотрудник УМЦ' },
+    { label: 'Экзаменатор', value: 'Экзаменатор' },
+  ];
+
+  numberOptions = [
+    { label: '1', value: '1' },
+    { label: '2', value: '2' },
+    { label: '3', value: '3' },
+  ];
+  employees: any[] = [
+    { specialistResources: '', typeResources: '' }
+  ];
+  addEmployee() {
+    this.employees.push({ specialistResources: '', typeResources: '' });
+  }
+  locations: any[] = [
+    { number: '', value: '', specialist: [] } // Инициализируем массив с первым блоком
+  ];
+
+
+  addLocation() {
+    this.locations.push({ number: '', value: '', specialist: [] });
+  }
+
+  addSpecialist(locationIndex: number) {
+    // Получаем локацию по индексу
+    const currentLocation = this.locations[locationIndex];
+    // Добавляем нового специалиста в массив specialist этой локации
+    currentLocation.specialist.push({ specialistResources: '', typeResources: '' });
   }
 }

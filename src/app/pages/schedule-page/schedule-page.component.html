@@ -10,10 +10,48 @@
       <span nz-icon nzType="download"></span>
       Выгрузить участников
     </button>
-    <button class="schedule-page__button" nz-button nzType="default">
-      <span nz-icon nzType="filter"></span>
-      Фильтр
+    <button nz-button class="schedule-page__button" nzType="default" nz-popover nzPopoverTitle="Фильтр" [(nzPopoverVisible)]="visible" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click" nzPopoverPlacement="bottomLeft" [nzPopoverContent]="contentTemplate">
+      <span nz-icon nzType="filter" ></span> Фильтр
     </button>
+    <ng-template #contentTemplate>
+
+      <div > Тип мероприятия </div>
+      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.event">
+        <nz-option *ngFor="let option of eventOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      </nz-select>
+
+      <div > Вид этапа мероприятия </div>
+      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.stage">
+        <nz-option *ngFor="let option of stageOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      </nz-select>
+
+      <div > Специальность </div>
+      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.specialization">
+        <nz-option *ngFor="let option of specializationOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      </nz-select>
+
+      <div> Тип помещения </div>
+      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.type">
+        <nz-option *ngFor="let option of typeOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      </nz-select>
+
+      <div > Номер </div>
+      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.number">
+        <nz-option *ngFor="let option of numberOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      </nz-select>
+
+
+      <div > Период проведения </div>
+      <nz-range-picker style="width: 350px" nzPlaceHolder=" " [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
+
+      <div > Статус </div>
+      <label nz-checkbox [(ngModel)]="checked">Черновик</label>
+      <label nz-checkbox [(ngModel)]="check">Утвержден</label>
+      <p></p>
+      <button class="__bnt" nz-button nzType="default" (click)="clickMe()">Сбросить</button>
+      <button class="schedule-page__butn" nz-button nzType="primary" (click)="handleOk()">Применить фильтр</button>
+
+    </ng-template>
   </div>
   <ng-container *ngIf="selectedIndex === 1">
     <app-timeline-card [cards]="cards" *ngIf="shouldDisplayCardComponent"></app-timeline-card>

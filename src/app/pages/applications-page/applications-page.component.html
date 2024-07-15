@@ -1,15 +1,32 @@
 <app-layout (collapse)="isCollapsed = $event"></app-layout>
 <div class="applications-page">
   <div class="applications-page__top">
-    <h2 class="applications-page__title">Расписание</h2>
-    <p>Здесь вы можете посмотреть расписание этапов в удобном вам виде</p>
+    <h2 class="applications-page__title">Заявки на мероприятие</h2>
+    <p>Здесь вы можете посмотреть заявки на участие в мероприятии</p>
   </div>
   <div class="applications-page__controls">
     <nz-segmented [nzOptions]="optionsSegmented" (nzValueChange)="onSegmentChange($event)"></nz-segmented>
-    <button class="applications-page__button" nz-button nzType="default" >
-      <span nz-icon nzType="filter" ></span>
-      Фильтр
+    <button nz-button class="applications-page__button" nzType="default" nz-popover nzPopoverTitle="Фильтр" [(nzPopoverVisible)]="visible" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click" nzPopoverPlacement="bottomLeft" [nzPopoverContent]="contentTemplate">
+      <span nz-icon nzType="filter" ></span> Фильтр
     </button>
+
+    <ng-template #contentTemplate>
+      <div class="applications-page__item"> Тип мероприятия </div>
+      <nz-select class="applications-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.event">
+        <nz-option *ngFor="let option of eventOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      </nz-select>
+
+      <div > Вид этапа мероприятия </div>
+      <nz-select class="applications-page__select" [(ngModel)]="selectedValue.number" nzShowSearch nzAllowClear nzPlaceHolder="Номер">
+        <nz-option *ngFor="let option of numberOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+      </nz-select>
+
+      <div> Период проведения </div>
+      <nz-range-picker style="width: 350px" nzPlaceHolder=" " [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
+      <p></p>
+      <button class="applications-page__bnt" nz-button nzType="default" (click)="clickMe()">Сбросить</button>
+      <button class="applications-page__butn" nz-button nzType="primary" (click)="handleOk()">Применить фильтр</button>
+    </ng-template>
   </div>
   <div *ngIf="selectedIndex === 0">
     <!-- Здесь можно разместить компонент для таблицы -->

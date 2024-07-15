@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 import {LayoutComponent} from "../../ui-components/layout/layout.component";
-import {NgIf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzSegmentedComponent} from "ng-zorro-antd/segmented";
 import {TimelineCardComponent} from "../../ui-components/timeline-card/timeline-card.component";
-import {NzModalComponent} from "ng-zorro-antd/modal";
+import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
-import {NzRangePickerComponent} from "ng-zorro-antd/date-picker";
+import {NzDatePickerComponent, NzRangePickerComponent} from "ng-zorro-antd/date-picker";
 import {FormsModule} from "@angular/forms";
 import {NzPaginationComponent} from "ng-zorro-antd/pagination";
 
+import {NzPopoverDirective} from 'ng-zorro-antd/popover';
+
+import {NzWaveDirective} from "ng-zorro-antd/core/wave";
 @Component({
   selector: 'app-applications-page',
   standalone: true,
@@ -26,7 +29,13 @@ import {NzPaginationComponent} from "ng-zorro-antd/pagination";
     NzOptionComponent,
     NzRangePickerComponent,
     FormsModule,
-    NzPaginationComponent
+    NzModalModule,
+    NzPaginationComponent,
+    NzPopoverDirective,
+    NgForOf,
+    NzDatePickerComponent,
+
+    NzWaveDirective
   ],
   templateUrl: './applications-page.component.html',
   styleUrl: './applications-page.component.scss'
@@ -58,5 +67,31 @@ export class ApplicationsPageComponent {
     type:'',
     number:'',
   };
+  visible: boolean = false;
+  clickMe(): void {
+    this.visible = false;
+  }
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.visible = false;
+  }
+  change(value: boolean): void {
+    console.log(value);
+  }
+  numberOptions = [
+    { label: '1', value: '1' },
+    { label: '2', value: '2' },
+    { label: '3', value: '3' },
+  ];
+  eventOptions = [
+    { label: 'ПА', value: 'ПА' },
+    { label: 'ПК', value: 'ПК' },
+    { label: 'ДПО', value: 'ДПО' },
+  ];
+  date: any;
+
+  onChange(result: Date[]): void {
+    console.log('onChange: ', result);
+  }
 
 }
