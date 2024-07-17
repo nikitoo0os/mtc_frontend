@@ -3,7 +3,7 @@
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 12px;
-  width: 170px;
+  width: 175px;
   height: 100%;
   background: white;
   position: relative;
@@ -14,7 +14,7 @@
   &--draft {
     border: 1px solid #a3a3b5;
   }
-  &__stage-type {
+  &__stage--type {
     font-size: 13px;
     font-weight: 600;
     margin: 0;
@@ -58,13 +58,13 @@
       margin-right: 12px;
     }
 
-    &-icon {
+    &--icon {
       margin-right: 3px;
       width: 12px;
       height: 12px;
     }
 
-    &-info {
+    &--info {
       font-size: 14px;
       font-weight: 500;
       letter-spacing: -0.5px;

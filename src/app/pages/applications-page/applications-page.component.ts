@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LayoutComponent} from "../../ui-components/layout/layout.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf, registerLocaleData} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzSegmentedComponent} from "ng-zorro-antd/segmented";
@@ -10,10 +10,13 @@ import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzDatePickerComponent, NzRangePickerComponent} from "ng-zorro-antd/date-picker";
 import {FormsModule} from "@angular/forms";
 import {NzPaginationComponent} from "ng-zorro-antd/pagination";
-
 import {NzPopoverDirective} from 'ng-zorro-antd/popover';
-
 import {NzWaveDirective} from "ng-zorro-antd/core/wave";
+import {NZ_I18N, NzI18nService, ru_RU} from "ng-zorro-antd/i18n";
+import ru from '@angular/common/locales/ru';
+
+registerLocaleData(ru);
+
 @Component({
   selector: 'app-applications-page',
   standalone: true,
@@ -38,9 +41,15 @@ import {NzWaveDirective} from "ng-zorro-antd/core/wave";
     NzWaveDirective
   ],
   templateUrl: './applications-page.component.html',
-  styleUrl: './applications-page.component.scss'
+  styleUrl: './applications-page.component.scss',
+  providers: [{ provide: NZ_I18N, useValue: ru_RU }, DatePipe]
 })
-export class ApplicationsPageComponent {
+export class ApplicationsPageComponent implements OnInit {
+  constructor(
+    private i18n: NzI18nService,
+    private datePipe: DatePipe
+  ) {}
+
   isCollapsed = false;
 
   selectedIndex: number = 0;
@@ -52,6 +61,10 @@ export class ApplicationsPageComponent {
     { label: 'Одобрены', value: 2, icon: '' },
     { label: 'Отклонены', value: 3, icon: '' },
   ];
+
+  ngOnInit(): void {
+    this.i18n.setLocale(ru_RU);
+  }
 
   onSegmentChange(event: number): void {
     this.selectedIndex = event;

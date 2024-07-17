@@ -8,10 +8,14 @@
     'stripe--draft': card?.status === 'Черновик'}"></div>
     <div>
       <p class="card__speciality mb0">{{card?.speciality}}</p>
-      <h2 class="card__stage-type">{{card?.stageType}}</h2>
+      <h2 class="card__stage--type">{{card?.stageType}}</h2>
       <div class="card__flex">
-        <span class="card__flex-icon" nz-icon nzType="clock-circle" nzTheme="outline"></span>
+        <span class="card__flex--icon" nz-icon nzType="clock-circle" nzTheme="outline"></span>
         <span class="card__time">{{card?.startTime}} - {{card?.endTime}}</span>
+      </div>
+      <div>
+        <span class="card__flex--icon" nz-icon nzType="environment" nzTheme="outline"></span>
+        <span class="card__time">{{card.location}}</span>
       </div>
     </div>
   </div>

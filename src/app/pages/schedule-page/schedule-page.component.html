@@ -6,12 +6,12 @@
   </div>
   <div class="schedule-page__controls">
     <nz-segmented [nzOptions]="optionsSegmented" (nzValueChange)="onSegmentChange($event)"></nz-segmented>
+    <button nz-button class="schedule-page__button" nzType="default" nz-popover nzPopoverTitle="Фильтр" [(nzPopoverVisible)]="visible" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click" nzPopoverPlacement="bottomRight" [nzPopoverContent]="contentTemplate">
+      <span nz-icon nzType="filter" ></span> Фильтр
+    </button>
     <button class="schedule-page__button" nz-button nzType="default">
       <span nz-icon nzType="download"></span>
       Выгрузить участников
-    </button>
-    <button nz-button class="schedule-page__button" nzType="default" nz-popover nzPopoverTitle="Фильтр" [(nzPopoverVisible)]="visible" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click" nzPopoverPlacement="bottomLeft" [nzPopoverContent]="contentTemplate">
-      <span nz-icon nzType="filter" ></span> Фильтр
     </button>
     <ng-template #contentTemplate>
 
@@ -35,16 +35,16 @@
         <nz-option *ngFor="let option of typeOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
       </nz-select>
 
-      <div > Номер </div>
+      <div> Номер </div>
       <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.number">
         <nz-option *ngFor="let option of numberOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
       </nz-select>
 
 
-      <div > Период проведения </div>
+      <div> Период проведения </div>
       <nz-range-picker style="width: 350px" nzPlaceHolder=" " [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
 
-      <div > Статус </div>
+      <div> Статус </div>
       <label nz-checkbox [(ngModel)]="checked">Черновик</label>
       <label nz-checkbox [(ngModel)]="check">Утвержден</label>
       <p></p>
@@ -53,11 +53,11 @@
 
     </ng-template>
   </div>
-  <ng-container *ngIf="selectedIndex === 1">
+  <ng-container *ngIf="selectedIndex === 0">
     <app-timeline-card [cards]="cards" *ngIf="shouldDisplayCardComponent"></app-timeline-card>
   </ng-container>
-  <div *ngIf="selectedIndex === 0">
-    <!-- Здесь можно разместить компонент для таблицы -->
-    <p>Таблица</p>
-  </div>
+  <ng-container *ngIf="selectedIndex === 1">
+      <app-table-schedule></app-table-schedule>
+  </ng-container>
+
 </div>

@@ -1,15 +1,11 @@
-import {Component} from '@angular/core';
-import {
-  NzContentComponent,
-  NzLayoutComponent,
-  NzSiderComponent
-} from "ng-zorro-antd/layout";
+import {Component, OnInit} from '@angular/core';
+import {NzContentComponent, NzLayoutComponent, NzSiderComponent} from "ng-zorro-antd/layout";
 import {LayoutComponent} from "../../ui-components/layout/layout.component";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
 import {NzPaginationComponent} from "ng-zorro-antd/pagination";
-import {NgForOf, NgIf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf, registerLocaleData} from "@angular/common";
 import {TimelineCardComponent} from "../../ui-components/timeline-card/timeline-card.component";
 import {Card} from "../../data/interfaces/Card";
 import {NzSegmentedComponent} from "ng-zorro-antd/segmented";
@@ -18,9 +14,10 @@ import {NzWaveDirective} from "ng-zorro-antd/core/wave";
 import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NzDatePickerComponent, NzRangePickerComponent} from "ng-zorro-antd/date-picker";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
-
-import {getISOWeek} from "date-fns";
 import {FormsModule} from "@angular/forms";
+import {NZ_I18N, NzI18nService, ru_RU} from "ng-zorro-antd/i18n";
+import ru from '@angular/common/locales/ru';
+import {TableScheduleComponent} from "../../ui-components/table-schedule/table-schedule.component";
 
 @Component({
   selector: 'app-schedule-page',
@@ -47,11 +44,16 @@ import {FormsModule} from "@angular/forms";
     NzRangePickerComponent,
     NzSelectComponent,
     FormsModule,
+    TableScheduleComponent,
   ],
   templateUrl: './schedule-page.component.html',
   styleUrl: './schedule-page.component.scss'
 })
-export class SchedulePageComponent {
+export class SchedulePageComponent implements OnInit {
+  constructor(
+    private i18n: NzI18nService
+  ) {}
+
   selectedValue: { event: string; stage: string; specialization:string; type:string; number:string} = {
     event: '',
     stage: '',
@@ -87,16 +89,20 @@ export class SchedulePageComponent {
   shouldDisplayCardComponent: boolean = true;
 
   optionsSegmented = [
-    { label: 'Таблица', value: 0, icon: 'bars' },
-    { label: 'Карточки', value: 1, icon: 'appstore' }
+    { label: 'Карточки', value: 0, icon: 'appstore' },
+    { label: 'Таблица', value: 1, icon: 'bars' }
   ];
+
+  ngOnInit(): void {
+    this.i18n.setLocale(ru_RU);
+  }
 
   onSegmentChange(event: number): void {
     this.selectedIndex = event;
     this.shouldDisplayCardComponent = false;
     setTimeout(() => {
       this.shouldDisplayCardComponent = true;
-      }, 0);
+    }, 0);
   }
   visible: boolean = false;
   clickMe(): void {
@@ -134,12 +140,6 @@ export class SchedulePageComponent {
     { label: 'ПК', value: 'ПК' },
     { label: 'ДПО', value: 'ДПО' },
   ];
-  constructor() {}
-  isVisible = true;
-  showModal(): void {
-    this.isVisible = true;
-  }
-
   date = null;
   checked=true;
   check=false;
@@ -148,7 +148,4 @@ export class SchedulePageComponent {
     console.log('onChange: ', result);
   }
 
-  getWeek(result: Date[]): void {
-    console.log('week: ', result.map(getISOWeek));
-  }
 }

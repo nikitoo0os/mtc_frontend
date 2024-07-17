@@ -13,7 +13,6 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {CardScheduleComponent} from "../../ui-components/card-schedule/card-schedule.component";
 import {TimelineCardComponent} from "../../ui-components/timeline-card/timeline-card.component";
 
-
 registerLocaleData(ru);
 
 
@@ -39,7 +38,7 @@ registerLocaleData(ru);
   styleUrl: './create-event-page.component.scss',
   providers: [{ provide: NZ_I18N, useValue: ru_RU }, DatePipe]
 })
-export class CreateEventPageComponent implements OnInit{
+export class CreateEventPageComponent implements OnInit {
   constructor(
     private i18n: NzI18nService,
     private datePipe: DatePipe
@@ -59,17 +58,17 @@ export class CreateEventPageComponent implements OnInit{
   }
 
   onDateRangeChange(result: Date[]): void {
-  if (result && result.length === 2) {
-    const formattedStartDate = this.transformDate(result[0]);
-    const formattedEndDate = this.transformDate(result[1]);
+    if (result && result.length === 2) {
+      const formattedStartDate = this.transformDate(result[0]);
+      const formattedEndDate = this.transformDate(result[1]);
 
-    if (!formattedStartDate || !formattedEndDate) {
-      console.error('Ошибка при преобразовании даты');
-    } else {
-      this.dateRange = [formattedStartDate, formattedEndDate];
+      if (!formattedStartDate || !formattedEndDate) {
+        console.error('Ошибка при преобразовании даты');
+      } else {
+        this.dateRange = [formattedStartDate, formattedEndDate];
+      }
     }
   }
-}
 
   reset() {
     this.typeEventSelectedValue = '';

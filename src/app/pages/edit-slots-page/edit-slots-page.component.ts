@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
@@ -8,7 +8,12 @@ import {NzModalComponent} from "ng-zorro-antd/modal";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzTimePickerComponent} from "ng-zorro-antd/time-picker";
 import {LayoutComponent} from "../../ui-components/layout/layout.component";
-import {NgClass, NgForOf} from "@angular/common";
+import {DatePipe, NgClass, NgForOf, registerLocaleData} from "@angular/common";
+import {NZ_I18N, NzI18nService, ru_RU} from "ng-zorro-antd/i18n";
+import ru from '@angular/common/locales/ru';
+
+registerLocaleData(ru);
+
 @Component({
   selector: 'app-edit-slots-page',
   standalone: true,
@@ -28,9 +33,15 @@ import {NgClass, NgForOf} from "@angular/common";
     NgClass
   ],
   templateUrl: './edit-slots-page.component.html',
-  styleUrl: './edit-slots-page.component.scss'
+  styleUrl: './edit-slots-page.component.scss',
+  providers: [{ provide: NZ_I18N, useValue: ru_RU }, DatePipe]
 })
-export class EditSlotsPageComponent {
+export class EditSlotsPageComponent implements OnInit {
+  constructor(
+    private i18n: NzI18nService,
+    private datePipe: DatePipe
+  ) {}
+
   isCollapsed = false;
   calendar="Дата"
   startTime="Начало"
@@ -45,6 +56,10 @@ export class EditSlotsPageComponent {
     typeResources:''
   };
   value: any;
+
+  ngOnInit(): void {
+    this.i18n.setLocale(ru_RU);
+  }
   onChange(result: Date): void {
     console.log('onChange: ', result);
   }

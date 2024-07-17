@@ -1,0 +1,29 @@
+<nz-table #sortTable nzSize="small" [nzData]="listOfData" nzTableLayout="fixed">
+  <thead>
+  <tr>
+    <th *ngFor="let column of listOfColumn">
+      <ng-container *ngFor="let part of column.title.split('\\n'); let last = last">
+        {{ part }}<br *ngIf="!last">
+      </ng-container>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of sortTable.data">
+    <td>
+      <div>{{ data.date }}</div>
+      <div>{{ data.time }}</div>
+    </td>
+    <td>
+      <div>{{ data.typeEvent }}</div>
+      <div>{{ data.typeStage }}</div>
+    </td>
+    <td>{{data.speciality}}</td>
+    <td>{{data.recorded}} / {{data.totalPlaces}}</td>
+   <td>
+    <span class="status" [ngStyle]="{
+      'background-color': data.status === 'Черновик' ? '#fff5b2' : '#dff0bf'}">{{data.status}}</span>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

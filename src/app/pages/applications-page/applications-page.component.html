@@ -6,7 +6,7 @@
   </div>
   <div class="applications-page__controls">
     <nz-segmented [nzOptions]="optionsSegmented" (nzValueChange)="onSegmentChange($event)"></nz-segmented>
-    <button nz-button class="applications-page__button" nzType="default" nz-popover nzPopoverTitle="Фильтр" [(nzPopoverVisible)]="visible" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click" nzPopoverPlacement="bottomLeft" [nzPopoverContent]="contentTemplate">
+    <button nz-button class="applications-page__button" nzType="default" nz-popover nzPopoverTitle="Фильтр" [(nzPopoverVisible)]="visible" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click" nzPopoverPlacement="bottomRight" [nzPopoverContent]="contentTemplate">
       <span nz-icon nzType="filter" ></span> Фильтр
     </button>
 

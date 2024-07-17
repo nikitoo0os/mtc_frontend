@@ -22,6 +22,7 @@
     "ng-zorro-antd": "^18.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "xml-js": "^1.6.11",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {

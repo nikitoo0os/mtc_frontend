@@ -16,6 +16,11 @@
     &:last-child {
       height: 0;
     }
+    &:first-child {
+      .timeline__label {
+        margin-top: 6px;
+      }
+    }
   }
 
   &__label {
@@ -23,10 +28,6 @@
     left: 0;
     transform: translateY(-50%);
     font-size: 14px;
-
-    &:first-child {
-      margin-top: 6px;
-    }
   }
 
   &__divider {
@@ -48,11 +49,11 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    min-width: 170px;
+    min-width: 175px;
   }
   &__position {
     position: absolute;
-    width: 170px;
+    width: 175px;
   }
 }
 

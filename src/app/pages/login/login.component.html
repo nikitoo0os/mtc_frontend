@@ -1,0 +1,11 @@
+<div class="form">
+  <h2 class="form--title">Вход в систему</h2>
+  <p>Выполните вход по выданному вам логину и паролю</p>
+  <form class="form__inputs">
+    <p class="form__inputs--label">Логин</p>
+    <input class="form__inputs--input" nz-input placeholder="Введите логин" [(ngModel)]="valueLogin" />
+    <p class="form__inputs--label">Пароль</p>
+    <input class="form__inputs--input" nz-input placeholder="Введите пароль" [(ngModel)]="valuePassword" type="password"/>
+    <button class="form--btn" nz-button nzType="primary">Войти</button>
+  </form>
+</div>
