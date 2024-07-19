@@ -30,13 +30,25 @@
   </div>
   <div *ngIf="selectedIndex === 0">
     <!-- Здесь можно разместить компонент для таблицы -->
-    <p>Таблица</p>
+    <app-table-applications></app-table-applications>
   </div>
-  <div>
+  <div *ngIf="selectedIndex === 1">
+    <!-- Здесь можно разместить компонент для таблицы -->
+    <app-table-applications></app-table-applications>
+  </div>
+  <div *ngIf="selectedIndex === 2">
+    <!-- Здесь можно разместить компонент для таблицы -->
+    <app-table-applications></app-table-applications>
+  </div>
+  <div *ngIf="selectedIndex === 3">
+    <!-- Здесь можно разместить компонент для таблицы -->
+    <app-table-applications></app-table-applications>
+  </div>
+  <!--<div>
     <p class="applications-page__info">Показано 10 записей из 100</p>
     <div class="applications-page__container">
       <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
     </div>
-  </div>
+  </div>-->
 </div>
 

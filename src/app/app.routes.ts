@@ -6,12 +6,15 @@ import {ApplicationsPageComponent} from "./pages/applications-page/applications-
 import {EditSlotsPageComponent} from "./pages/edit-slots-page/edit-slots-page.component";
 import {LoginComponent} from "./pages/login/login.component";
 import {TableScheduleComponent} from "./ui-components/table-schedule/table-schedule.component";
+import {CreateApplicationComponent} from "./pages/create-application/create-application.component";
+
 
 export const routes: Routes = [
   {path: 'create-event', component: CreateEventPageComponent},
   {path: 'schedule-page', component: SchedulePageComponent},
   {path: 'edit-slot-page', component: EditSlotsPageComponent},
   {path: 'applications-page', component: ApplicationsPageComponent},
-  {path: 'contacts-page', component: ContactInformationPageComponent},
+  {path: '', component: ContactInformationPageComponent},
+  {path: 'create-application', component: CreateApplicationComponent},
   {path: 'login', component: LoginComponent}
 ];

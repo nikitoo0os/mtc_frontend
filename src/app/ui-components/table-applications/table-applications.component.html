@@ -1,0 +1,23 @@
+<nz-table #sortTable nzSize="small" [nzPageSize]="10" [nzPageIndex]="pageIndex" nzShowPagination="true" nzTableLayout="fixed" (nzPageIndexChange)="onPageIndexChange($event)">
+  <thead>
+  <tr>
+    <th *ngFor="let column of listOfColumn">
+      <ng-container *ngFor="let part of column.title.split('\\n'); let last = last">
+        {{ part }}<br *ngIf="!last">
+      </ng-container>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>.</td>
+    <td>.</td>
+    <td>.</td>
+    <td>.</td>
+    <td>.</td>
+    <td>.</td>
+    <td>.</td>
+    <td>.</td>
+  </tr>
+  </tbody>
+</nz-table>

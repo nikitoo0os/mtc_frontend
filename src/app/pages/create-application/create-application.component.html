@@ -1,0 +1,103 @@
+<app-layout (collapse)="isCollapsed = $event"></app-layout>
+<div class="create-application-page">
+  <div class="create-application-page__top">
+    <h2 class="create-application__title">Создание заяки</h2>
+    <p>Здесь вы можете подать заявку на интерисующее вас мероприятие</p>
+  </div>
+  <div class="create-application-page__containerType">
+    <p class="create-application-page__type">Тип мероприятия</p>
+    <p class="create-application-page__item">{{label}}</p>
+  </div>
+  <br>
+  <form [nzLayout]="'vertical'" class="create-application-page__form" nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-row>
+      <nz-col nzSpan="12">
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Введите свое имя">
+            <div class="create-application-page__item">Имя</div>
+            <nz-input-group >
+              <input class="create-application-page__input" formControlName="userName" nz-input placeholder="Введите имя" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Введите свое отчество">
+            <div class="create-application-page__item">Отчество</div>
+            <nz-input-group>
+              <input class="create-application-page__input" formControlName="userPatronymic" nz-input placeholder="Введите отчество" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Введите свое имя">
+            <div class="create-application-page__item">Выберите дату рождения</div>
+            <nz-date-picker formControlName="datePicker"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Введите свой Email">
+            <div class="create-application-page__item">Email</div>
+            <nz-input-group>
+              <input class="create-application-page__input" formControlName="userEmail" nz-input placeholder="Email" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Введите свой номер телеофона">
+            <div class="create-application-page__item">Номер телефона</div>
+            <nz-input-group>
+              <input class="create-application-page__input" formControlName="userPhone" nz-input placeholder="Номер телефона" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-control>
+            <div class="create-application-page__item">Мед. специальность</div>
+            <nz-select class="create-application-page__input" name="select-validate" [ngModel]="'Option 2'">
+              <nz-option *ngFor="let option of specializationOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <div class="create-application-page__item">Мед. должность</div>
+            <nz-select class="create-application-page__input" name="select-validate" [ngModel]="'Option 2'">
+              <nz-option *ngFor="let option of postOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <div class="create-application-page__item">Мед. организация</div>
+            <nz-select class="create-application-page__input" name="select-validate" [ngModel]="'Option 2'">
+              <nz-option *ngFor="let option of organizationOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+
+          <nz-form-item>
+            <nz-form-control>
+              <button class="create-application-page__btn" nz-button nzType="primary" [disabled]="!validateForm.valid">Подать заявку</button>
+            </nz-form-control>
+          </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </form>
+  <div class="create-application-page__switch">
+    <nz-switch  [(ngModel)]="switchValue"></nz-switch>
+    <div>Редактировать</div>
+  </div>
+
+</div>
+

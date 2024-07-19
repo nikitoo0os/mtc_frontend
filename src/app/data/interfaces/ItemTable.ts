@@ -1,4 +1,5 @@
 export interface ItemTable {
+  id: string;
   date: string;
   time: string;
   typeEvent: string;
