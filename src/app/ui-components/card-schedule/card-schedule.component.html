@@ -5,7 +5,7 @@
   <div class="container">
     <div class="card__vertical-stripe" [ngClass]="{
     'stripe--approved': card?.status === 'Утверждено',
-    'stripe--draft': card?.status === 'Черновик'}"></div>
+    'card--draft': card?.status === 'Черновик'}" [routerLink]="['/edit-slot-page']"></div>
     <div>
       <p class="card__speciality mb0">{{card?.speciality}}</p>
       <h2 class="card__stage--type">{{card?.stageType}}</h2>

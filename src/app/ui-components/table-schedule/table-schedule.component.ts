@@ -8,6 +8,7 @@ import {
 } from "ng-zorro-antd/table";
 import {ItemTableSchedule} from "../../data/interfaces/ItemTableSchedule";
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-table-schedule',
@@ -20,7 +21,8 @@ import {NgForOf, NgIf, NgStyle} from "@angular/common";
     NgForOf,
     NzCellFixedDirective,
     NgIf,
-    NgStyle
+    NgStyle,
+    RouterLink
   ],
   templateUrl: './table-schedule.component.html',
   styleUrl: './table-schedule.component.scss'

@@ -10,6 +10,7 @@ import {NzPopoverDirective} from "ng-zorro-antd/popover";
 import {NzSegmentedComponent} from "ng-zorro-antd/segmented";
 import {NzWaveDirective} from "ng-zorro-antd/core/wave";
 import {FormsModule} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contact-information-page',
@@ -34,8 +35,9 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './contact-information-page.component.scss'
 })
 export class ContactInformationPageComponent {
-  isCollapsed = false;
+  constructor(private router: Router) { }
 
+  isCollapsed = false;
   selectedIndex: number = 0;
   shouldDisplayCardComponent: boolean = true;
 
@@ -45,6 +47,13 @@ export class ContactInformationPageComponent {
     { label: 'Дополнительное образование (ДПО) ', value: 2, icon: '' },
   ];
 
+  onButtonClick() {
+    const selectedOption = this.optionsSegmented.find(option => option.value === this.selectedIndex);
+    if (selectedOption) {
+      this.router.navigate(['/create-application']);
+    }
+  }
+
   onSegmentChange(event: number): void {
     this.selectedIndex = event;
     this.shouldDisplayCardComponent = false;
@@ -52,6 +61,7 @@ export class ContactInformationPageComponent {
       this.shouldDisplayCardComponent = true;
     }, 0);
   }
+
   selectedValue: { event: string; stage: string; specialization:string; type:string; number:string} = {
     event: '',
     stage: '',
