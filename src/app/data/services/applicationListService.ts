@@ -3,13 +3,17 @@ import * as convert from 'xml-js';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {ConfigService} from "./ConfigService";
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class ApplicationListService {
-    constructor(private http: HttpClient) { }
+    constructor(
+      private http: HttpClient,
+      private configService: ConfigService
+    ) {}
 
     getApplications(pageNumber: number): Observable<any> {
         const headers = new HttpHeaders()
@@ -34,7 +38,7 @@ export class ApplicationListService {
       </soapenv:Envelope>
     `;
       // http://178.141.253.196:8110/ws
-        return this.http.post('http://localhost:8080/ws/', body, { headers: headers, responseType: 'text' }).pipe(
+        return this.http.post(this.configService.apiUrl, body, { headers: headers, responseType: 'text' }).pipe(
             map((xml: string) => {
                 const json = convert.xml2js(xml, { compact: true }) as any;
                 const response = json['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ns2:EventApplicationListResponse'];

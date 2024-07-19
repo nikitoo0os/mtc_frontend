@@ -5,15 +5,16 @@ import {map} from 'rxjs/operators';
 import * as xml2js from 'xml-js';
 import {IEventType} from "../interfaces/IEvenType";
 import {IMedicalSpeciality} from "../interfaces/IMedicalSpeciality";
+import {ConfigService} from "./ConfigService";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MedicalSpecialityService {
-    // http://178.141.253.196:8110/ws
-    private readonly url = 'http://localhost:8080/ws/';
-
-    constructor(private http: HttpClient) { }
+    constructor(
+      private http: HttpClient,
+      private configService: ConfigService
+    ) {}
 
     getMedicalSpecialities(name: string): Observable<IMedicalSpeciality[]> {
         const headers = new HttpHeaders()
@@ -31,7 +32,7 @@ export class MedicalSpecialityService {
            </soapenv:Body>
         </soapenv:Envelope>
         `;
-        return this.http.post(this.url, body, {headers: headers, responseType: 'text'}).pipe(
+        return this.http.post(this.configService.apiUrl, body, {headers: headers, responseType: 'text'}).pipe(
             map(response => this.parseXml(response))
         );
     }
