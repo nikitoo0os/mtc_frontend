@@ -1,70 +1,90 @@
-import { Component } from '@angular/core';
-import {NgForOf, NgIf, NgStyle} from "@angular/common";
-import {
-  NzCellFixedDirective,
-  NzTableComponent,
-  NzTbodyComponent,
-  NzThAddOnComponent,
-  NzTheadComponent
-} from "ng-zorro-antd/table";
-import {ItemTable} from "../../data/interfaces/ItemTable";
+import { Component, OnInit } from '@angular/core';
+import { CommonModule, NgForOf, NgIf, NgStyle } from "@angular/common";
+import { NzTableComponent, NzTbodyComponent, NzTheadComponent, NzTrDirective } from "ng-zorro-antd/table";
+import { ApplicationListService } from "../../data/services/applicationListService";
+import {NzSpinComponent} from "ng-zorro-antd/spin";
+import {NzPaginationComponent} from "ng-zorro-antd/pagination";
 
 @Component({
   selector: 'app-table-applications',
   standalone: true,
   imports: [
-    NzTableComponent,
-    NzTheadComponent,
-    NzTbodyComponent,
-    NzThAddOnComponent,
     NgForOf,
-    NzCellFixedDirective,
     NgIf,
-    NgStyle
+    NzTableComponent,
+    NzTbodyComponent,
+    NzTheadComponent,
+    NgStyle,
+    CommonModule,
+    NzTrDirective,
+    NzSpinComponent,
+    NzPaginationComponent
   ],
   templateUrl: './table-applications.component.html',
-  styleUrl: './table-applications.component.scss'
+  styleUrls: ['./table-applications.component.scss']
 })
-export class TableApplicationsComponent {
-  constructor() { }
-  pageIndex = 1;
+export class TableApplicationsComponent implements OnInit {
+  listOfData: any[] = [];
+  totalPages = 1;
+  totalElements = 0;
+  pageSize = 10;
+  pageNumber = 0;
+  loading = true;
+
   listOfColumn = [
-    {
-      title: 'Статус',
-      priority: 8
-    },
-    {
-      title: 'Мероприятие',
-      priority: 7
-    },
-    {
-      title: 'ФИО',
-      priority: 6
-    },
-    {
-      title: 'Номер телефона',
-      priority: 5
-    },
-    {
-      title: 'Электронная почта',
-      priority: 4
-    },
-    {
-      title: 'Медицинское учреждение',
-      priority: 3
-    },
-    {
-      title: 'Специальность',
-      priority: 2
-    },
-    {
-      title: 'Должность',
-      priority: 1
-    }
+    { title: 'Статус', priority: false },
+    { title: 'Мероприятие', priority: false },
+    { title: 'ФИО', priority: false },
+    { title: 'Номер телефона', priority: 1 },
+    { title: 'Электронная почта', priority: false },
+    { title: 'Медицинская организация', priority: false },
+    { title: 'Специальность', priority: false },
+    { title: 'Должность', priority: false }
   ];
 
+  constructor(private applicationListService: ApplicationListService) { }
 
-  onPageIndexChange($event: number) {
+  ngOnInit() {
+    this.loadApplications(this.pageNumber);
+  }
 
+  loadApplications(page: number) {
+    this.loading = true;
+    this.applicationListService.getApplications(page).subscribe(data => {
+      this.listOfData = data.applications;
+      this.totalPages = data.totalPages;
+      this.totalElements = data.totalElements;
+      this.pageSize = data.pageSize;
+      this.pageNumber = data.pageNumber;
+      this.loading = false;
+    });
+  }
+
+
+  onPageChange(page: number) {
+    this.loadApplications(page - 1);
+  }
+
+  translateStatus(status: string): string {
+    switch (status) {
+      case 'IN_PROCESSING':
+        return 'В обработке';
+      case 'APPROVED':
+        return 'Одобрено';
+      case 'REJECTED':
+        return 'Отклонено';
+      default:
+        return status;
+    }
+  }
+
+  formatName(fullName: string): string {
+    const parts = fullName.split(' ');
+    if (parts.length >= 3) {
+      return `${parts[0]} ${parts[1][0]}. ${parts[2][0]}.`;
+    } else if (parts.length === 2) {
+      return `${parts[0]} ${parts[1][0]}.`;
+    }
+    return fullName;
   }
 }

@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {CardScheduleComponent} from "../card-schedule/card-schedule.component";
-import {Card} from "../../data/interfaces/Card";
+import {ICard} from "../../data/interfaces/ICard";
 import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 
 @Component({
@@ -11,9 +11,9 @@ import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
   styleUrls: ['./timeline-card.component.scss']
 })
 export class TimelineCardComponent implements OnChanges {
-  @Input() cards: Card[] = [];
+  @Input() cards: ICard[] = [];
 
-  columns: Card[][] = [[], [], [], [], [], [], [], []];
+  columns: ICard[][] = [[], [], [], [], [], [], [], []];
   timeSlots: string[] = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
 
   ngOnChanges(changes: SimpleChanges) {
@@ -34,7 +34,7 @@ export class TimelineCardComponent implements OnChanges {
     });
   }
 
-  canPlaceCardInColumn(card: Card, column: Card[]): boolean {
+  canPlaceCardInColumn(card: ICard, column: ICard[]): boolean {
     for (const existingCard of column) {
       if (this.doCardsOverlap(card, existingCard)) {
         return false;
@@ -43,7 +43,7 @@ export class TimelineCardComponent implements OnChanges {
     return true;
   }
 
-  doCardsOverlap(card1: Card, card2: Card): boolean {
+  doCardsOverlap(card1: ICard, card2: ICard): boolean {
     const card1Start = new Date(`1970-01-01T${card1.startTime}:00`).getTime();
     const card1End = new Date(`1970-01-01T${card1.endTime}:00`).getTime();
     const card2Start = new Date(`1970-01-01T${card2.startTime}:00`).getTime();
@@ -51,14 +51,14 @@ export class TimelineCardComponent implements OnChanges {
     return card1Start < card2End && card1End > card2Start;
   }
 
-  getCardTopPosition(card: Card): number {
+  getCardTopPosition(card: ICard): number {
     const startHour = parseInt(card.startTime.split(':')[0], 10);
     const startMinute = parseInt(card.startTime.split(':')[1], 10);
     const startMinutesFromTop = (startHour - 10) * 60 + startMinute;
     return startMinutesFromTop * (300 / 60) + 5; // Добавляем отступ сверху
   }
 
-  getCardHeight(card: Card): number {
+  getCardHeight(card: ICard): number {
     const startHour = parseInt(card.startTime.split(':')[0], 10);
     const startMinute = parseInt(card.startTime.split(':')[1], 10);
     const endHour = parseInt(card.endTime.split(':')[0], 10);

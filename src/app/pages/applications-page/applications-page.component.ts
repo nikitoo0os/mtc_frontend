@@ -8,13 +8,19 @@ import {TimelineCardComponent} from "../../ui-components/timeline-card/timeline-
 import {NzModalComponent, NzModalModule} from "ng-zorro-antd/modal";
 import {NzOptionComponent, NzSelectComponent} from "ng-zorro-antd/select";
 import {NzDatePickerComponent, NzRangePickerComponent} from "ng-zorro-antd/date-picker";
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NzPaginationComponent} from "ng-zorro-antd/pagination";
 import {NzPopoverDirective} from 'ng-zorro-antd/popover';
 import {NzWaveDirective} from "ng-zorro-antd/core/wave";
 import {NZ_I18N, NzI18nService, ru_RU} from "ng-zorro-antd/i18n";
 import ru from '@angular/common/locales/ru';
 import {TableApplicationsComponent} from "../../ui-components/table-applications/table-applications.component";
+import {IEventType} from "../../data/interfaces/IEvenType";
+import {EventTypeService} from "../../data/services/eventTypeService";
+import {NzFormDirective, NzFormItemComponent, NzFormLabelComponent} from "ng-zorro-antd/form";
+import {NzColDirective} from "ng-zorro-antd/grid";
+import {NzInputGroupComponent} from "ng-zorro-antd/input";
+import {IMedicalWorker} from "../../data/interfaces/IMedicalWorker";
 
 registerLocaleData(ru);
 
@@ -40,7 +46,12 @@ registerLocaleData(ru);
     NzDatePickerComponent,
     NzWaveDirective,
     TableApplicationsComponent,
-
+    NzFormDirective,
+    ReactiveFormsModule,
+    NzFormItemComponent,
+    NzColDirective,
+    NzFormLabelComponent,
+    NzInputGroupComponent
   ],
   templateUrl: './applications-page.component.html',
   styleUrl: './applications-page.component.scss',
@@ -48,8 +59,9 @@ registerLocaleData(ru);
 })
 export class ApplicationsPageComponent implements OnInit {
   constructor(
+    private fb: FormBuilder,
     private i18n: NzI18nService,
-    private datePipe: DatePipe
+    private eventTypeService: EventTypeService
   ) {}
 
   isCollapsed = false;
@@ -63,9 +75,12 @@ export class ApplicationsPageComponent implements OnInit {
     { label: 'Одобрены', value: 2, icon: '' },
     { label: 'Отклонены', value: 3, icon: '' },
   ];
+  eventTypeOptions: IEventType[] = [];
+  medicalWorkerOptions: IMedicalWorker[] = [];
 
   ngOnInit(): void {
     this.i18n.setLocale(ru_RU);
+    this.loadEventTypes();
   }
 
   onSegmentChange(event: number): void {
@@ -75,19 +90,9 @@ export class ApplicationsPageComponent implements OnInit {
       this.shouldDisplayCardComponent = true;
     }, 0);
   }
-  selectedValue: { event: string; stage: string; specialization:string; type:string; number:string} = {
-    event: '',
-    stage: '',
-    specialization:'',
-    type:'',
-    number:'',
-  };
   visible: boolean = false;
-  clickMe(): void {
-    this.visible = false;
-  }
-  handleOk(): void {
-    console.log('Button ok clicked!');
+
+  applyFilter(): void {
     this.visible = false;
   }
   change(value: boolean): void {
@@ -98,15 +103,25 @@ export class ApplicationsPageComponent implements OnInit {
     { label: '2', value: '2' },
     { label: '3', value: '3' },
   ];
-  eventOptions = [
-    { label: 'ПА', value: 'ПА' },
-    { label: 'ПК', value: 'ПК' },
-    { label: 'ДПО', value: 'ДПО' },
-  ];
+  loadEventTypes(): void {
+    this.eventTypeService.getEventTypes().subscribe(data => {
+      this.eventTypeOptions = data;
+    });
+  }
   date: any;
 
   onChange(result: Date[]): void {
     console.log('onChange: ', result);
   }
+  filterForm: FormGroup<{
+    eventTypes: FormControl<IEventType | null>
+  }> = this.fb.group({
+    eventTypes: this.fb.control<IEventType | null>(null)
+  });
 
+  resetFilterForm(): void {
+  }
+
+  submitFilterForm(): void {
+  }
 }

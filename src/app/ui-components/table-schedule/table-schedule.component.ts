@@ -6,9 +6,8 @@ import {
   NzThAddOnComponent,
   NzTheadComponent
 } from "ng-zorro-antd/table";
-import {ItemTable} from "../../data/interfaces/ItemTable";
+import {ItemTableSchedule} from "../../data/interfaces/ItemTableSchedule";
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
-import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-table-schedule',
@@ -21,8 +20,7 @@ import {RouterLink} from "@angular/router";
     NgForOf,
     NzCellFixedDirective,
     NgIf,
-    NgStyle,
-    RouterLink
+    NgStyle
   ],
   templateUrl: './table-schedule.component.html',
   styleUrl: './table-schedule.component.scss'
@@ -33,29 +31,32 @@ export class TableScheduleComponent implements OnInit {
   listOfColumn = [
     {
       title: 'Дата\\nВремя',
-      compare: false,
+      compare: (a: ItemTableSchedule, b: ItemTableSchedule) => new Date(a.date.split('.').reverse().join('-')).getTime() - new Date(b.date.split('.').reverse().join('-')).getTime(),
       priority: false
     },
     {
       title: 'Тип мероприятия\\nВид этапа',
+      compare: false,
       priority: 4
     },
     {
       title: 'Специалальность',
+      compare: false,
       priority: 3
     },
     {
       title: 'Записано / Всего мест',
+      compare: false,
       priority: 2
     },
     {
       title: 'Статус',
+      compare: false,
       priority: 1
     }
   ];
-  listOfData: ItemTable[] = [
+  listOfData: ItemTableSchedule[] = [
     {
-      id:'1',
       date: '12.12.2020',
       time: '12:00',
       typeEvent: 'Тип',
@@ -66,7 +67,6 @@ export class TableScheduleComponent implements OnInit {
       status: 'Черновик',
     },
     {
-      id:'2',
       date: '12.12.2020',
       time: '12:00',
       typeEvent: 'Тип',
@@ -77,7 +77,6 @@ export class TableScheduleComponent implements OnInit {
       status: 'Черновик',
     },
     {
-      id:'3',
       date: '12.12.2020',
       time: '12:00',
       typeEvent: 'Тип',

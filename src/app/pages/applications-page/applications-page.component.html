@@ -6,49 +6,55 @@
   </div>
   <div class="applications-page__controls">
     <nz-segmented [nzOptions]="optionsSegmented" (nzValueChange)="onSegmentChange($event)"></nz-segmented>
-    <button nz-button class="applications-page__button" nzType="default" nz-popover nzPopoverTitle="Фильтр" [(nzPopoverVisible)]="visible" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click" nzPopoverPlacement="bottomRight" [nzPopoverContent]="contentTemplate">
-      <span nz-icon nzType="filter" ></span> Фильтр
+    <button nz-button class="applications-page__button" nzType="default" nz-popover nzPopoverPlacement="bottomRight" nzPopoverTitle="Фильтр" [(nzPopoverVisible)]="visible" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click" [nzPopoverContent]="contentTemplate">
+      <span nz-icon nzType="filter"></span> Фильтр
     </button>
-
     <ng-template #contentTemplate>
-      <div class="applications-page__item"> Тип мероприятия </div>
-      <nz-select class="applications-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.event">
-        <nz-option *ngFor="let option of eventOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-      </nz-select>
-
-      <div > Вид этапа мероприятия </div>
-      <nz-select class="applications-page__select" [(ngModel)]="selectedValue.number" nzShowSearch nzAllowClear nzPlaceHolder="Номер">
-        <nz-option *ngFor="let option of numberOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-      </nz-select>
-
-      <div> Период проведения </div>
-      <nz-range-picker style="width: 350px" nzPlaceHolder=" " [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
-      <p></p>
-      <button class="applications-page__bnt" nz-button nzType="default" (click)="clickMe()">Сбросить</button>
-      <button class="applications-page__butn" nz-button nzType="primary" (click)="handleOk()">Применить фильтр</button>
+      <form nz-form [formGroup]="filterForm" (ngSubmit)="submitFilterForm()">
+        <nz-form-item>
+          <nz-form-label>Тип мероприятия</nz-form-label>
+          <nz-form-control>
+            <nz-input-group>
+              <nz-select class="applications-page__select"
+                         formControlName="eventTypes"
+                         nzPlaceHolder="Выберите из списка">
+                <nz-option *ngFor="let option of eventTypeOptions" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+              </nz-select>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>Медицинский работник</nz-form-label>
+          <nz-form-control>
+            <nz-input-group>
+              <nz-select class="applications-page__select"
+                         formControlName="medicalWorkers"
+                         nzPlaceHolder="Выберите из списка">
+                <nz-option *ngFor="let option of medicalWorkerOptions" [nzLabel]="option.fullName" [nzValue]="option.id"></nz-option>
+              </nz-select>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>Период подачи заявки</nz-form-label>
+          <nz-form-control>
+            <nz-input-group>
+              <nz-range-picker
+                formControlName="date"
+                style="width: 350px"
+                nzPlaceHolder=" "
+                (ngModelChange)="onChange($event)">
+              </nz-range-picker>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button class="applications-page__bnt" nz-button nzType="default" (click)="resetFilterForm()">Сбросить</button>
+        <button class="applications-page__butn" nz-button nzType="primary" (click)="applyFilter()">Применить фильтр</button>
+      </form>
     </ng-template>
   </div>
   <div *ngIf="selectedIndex === 0">
-    <!-- Здесь можно разместить компонент для таблицы -->
     <app-table-applications></app-table-applications>
   </div>
-  <div *ngIf="selectedIndex === 1">
-    <!-- Здесь можно разместить компонент для таблицы -->
-    <app-table-applications></app-table-applications>
-  </div>
-  <div *ngIf="selectedIndex === 2">
-    <!-- Здесь можно разместить компонент для таблицы -->
-    <app-table-applications></app-table-applications>
-  </div>
-  <div *ngIf="selectedIndex === 3">
-    <!-- Здесь можно разместить компонент для таблицы -->
-    <app-table-applications></app-table-applications>
-  </div>
-  <!--<div>
-    <p class="applications-page__info">Показано 10 записей из 100</p>
-    <div class="applications-page__container">
-      <nz-pagination [nzPageIndex]="1" [nzTotal]="50"></nz-pagination>
-    </div>
-  </div>-->
 </div>
 

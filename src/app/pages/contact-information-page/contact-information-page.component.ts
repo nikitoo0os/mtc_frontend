@@ -10,7 +10,6 @@ import {NzPopoverDirective} from "ng-zorro-antd/popover";
 import {NzSegmentedComponent} from "ng-zorro-antd/segmented";
 import {NzWaveDirective} from "ng-zorro-antd/core/wave";
 import {FormsModule} from "@angular/forms";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contact-information-page',
@@ -35,15 +34,6 @@ import {Router} from "@angular/router";
   styleUrl: './contact-information-page.component.scss'
 })
 export class ContactInformationPageComponent {
-
-  constructor(private router: Router) { }
-
-  onButtonClick() {
-    const selectedOption = this.optionsSegmented.find(option => option.value === this.selectedIndex);
-    if (selectedOption) {
-      this.router.navigate(['/create-application']);
-    }
-  }
   isCollapsed = false;
 
   selectedIndex: number = 0;

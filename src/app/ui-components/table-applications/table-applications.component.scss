@@ -2,3 +2,33 @@
   padding: 4px;
   border-radius: 4px;
 }
+
+.ant-table-tbody {
+  > tr {
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #fafafa;
+    }
+  }
+}
+td {
+  font-size: 12px;
+}
+.example {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  padding: 50px 50px;
+  margin: 20px 0;
+}
+.pagination-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.total-records {
+  font-weight: bold;
+}

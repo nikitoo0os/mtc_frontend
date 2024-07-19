@@ -1,23 +1,43 @@
-<nz-table #sortTable nzSize="small" [nzPageSize]="10" [nzPageIndex]="pageIndex" nzShowPagination="true" nzTableLayout="fixed" (nzPageIndexChange)="onPageIndexChange($event)">
-  <thead>
-  <tr>
-    <th *ngFor="let column of listOfColumn">
-      <ng-container *ngFor="let part of column.title.split('\\n'); let last = last">
-        {{ part }}<br *ngIf="!last">
-      </ng-container>
-    </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>.</td>
-    <td>.</td>
-    <td>.</td>
-    <td>.</td>
-    <td>.</td>
-    <td>.</td>
-    <td>.</td>
-    <td>.</td>
-  </tr>
-  </tbody>
-</nz-table>
+<ng-container *ngIf="!loading; else loadingTemplate">
+  <nz-table nzSize="small" [nzData]="listOfData" [nzShowPagination]="false">
+    <thead>
+    <tr>
+      <th *ngFor="let column of listOfColumn">
+        <ng-container *ngFor="let part of column.title.split('\\n'); let last = last">
+          {{ part }}<br *ngIf="!last">
+        </ng-container>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of listOfData">
+      <td>{{ translateStatus(data.status) }}</td>
+      <td>{{ data.typeEvent }}</td>
+      <td>{{ formatName(data.fullName) }}</td>
+      <td>{{ data.phone }}</td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.medicalOrganization }}</td>
+      <td>{{ data.speciality }}</td>
+      <td>{{ data.position }}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+  <div class="pagination-info">
+    <div class="total-records">
+      Показано {{ pageSize }} из {{ totalElements }} записей
+    </div>
+    <nz-pagination
+            [nzPageIndex]="pageNumber + 1"
+            [nzTotal]="totalElements"
+            [nzPageSize]="pageSize"
+            [nzPageSizeOptions]="[5, 10, 20, 50]"
+            (nzPageIndexChange)="onPageChange($event)"
+    ></nz-pagination>
+  </div>
+</ng-container>
+
+<ng-template #loadingTemplate>
+  <div class="example">
+    <nz-spin nzSimple></nz-spin>
+  </div>
+</ng-template>

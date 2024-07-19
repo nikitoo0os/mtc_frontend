@@ -7,57 +7,108 @@
   <div class="schedule-page__controls">
     <nz-segmented [nzOptions]="optionsSegmented" (nzValueChange)="onSegmentChange($event)"></nz-segmented>
     <button nz-button class="schedule-page__button" nzType="default" nz-popover nzPopoverTitle="Фильтр" [(nzPopoverVisible)]="visible" (nzPopoverVisibleChange)="change($event)" nzPopoverTrigger="click" nzPopoverPlacement="bottomRight" [nzPopoverContent]="contentTemplate">
-      <span nz-icon nzType="filter" ></span> Фильтр
+      <span nz-icon nzType="filter"></span> Фильтр
     </button>
     <button class="schedule-page__button" nz-button nzType="default">
       <span nz-icon nzType="download"></span>
       Выгрузить участников
     </button>
-    <ng-template #contentTemplate>
-
-      <div > Тип мероприятия </div>
-      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.event">
-        <nz-option *ngFor="let option of eventOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-      </nz-select>
-
-      <div > Вид этапа мероприятия </div>
-      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.stage">
-        <nz-option *ngFor="let option of stageOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-      </nz-select>
-
-      <div > Специальность </div>
-      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.specialization">
-        <nz-option *ngFor="let option of specializationOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-      </nz-select>
-
-      <div> Тип помещения </div>
-      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.type">
-        <nz-option *ngFor="let option of typeOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-      </nz-select>
-
-      <div> Номер </div>
-      <nz-select class="schedule-page__select" nzShowSearch nzAllowClear nzPlaceHolder="Введите или выберите из списка" [(ngModel)]="selectedValue.number">
-        <nz-option *ngFor="let option of numberOptions" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-      </nz-select>
-
-
-      <div> Период проведения </div>
-      <nz-range-picker style="width: 350px" nzPlaceHolder=" " [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-range-picker>
-
-      <div> Статус </div>
-      <label nz-checkbox [(ngModel)]="checked">Черновик</label>
-      <label nz-checkbox [(ngModel)]="check">Утвержден</label>
-      <p></p>
-      <button class="__bnt" nz-button nzType="default" (click)="clickMe()">Сбросить</button>
-      <button class="schedule-page__butn" nz-button nzType="primary" (click)="handleOk()">Применить фильтр</button>
-
-    </ng-template>
   </div>
+  <ng-template #contentTemplate>
+    <form nz-form [formGroup]="filterForm" (ngSubmit)="submitFilterForm()">
+      <nz-form-item>
+        <nz-form-label>Тип мероприятия</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <nz-select class="schedule-page__select"
+                       formControlName="eventTypes"
+                       nzPlaceHolder="Выберите из списка">
+              <nz-option *ngFor="let option of eventTypeOptions" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Вид этапа мероприятия</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <nz-select class="schedule-page__select"
+                       formControlName="eventStages"
+                       nzPlaceHolder="Введите или выберите из списка"
+                       nzShowSearch="true"
+                       (nzOnSearch)="onEventStageSearch($event)">
+              <nz-option *ngFor="let option of eventStageOptions" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Специальность</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <nz-select class="schedule-page__select"
+                       formControlName="medicalSpecialities"
+                       nzPlaceHolder="Введите или выберите из списка"
+                       nzShowSearch="true"
+                       (nzOnSearch)="onMedicalSpecialitySearch($event)">
+              <nz-option *ngFor="let option of medicalSpecialityOptions" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Специалист</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <nz-select class="schedule-page__select"
+                       formControlName="medicalWorkers"
+                       nzPlaceHolder="Введите или выберите из списка"
+                       nzShowSearch="true"
+                       (nzOnSearch)="onMedicalWorkerSearch($event)">
+              <nz-option *ngFor="let option of medicalWorkerOptions" [nzLabel]="option.fullName" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Тип помещения</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <nz-select class="schedule-page__select"
+                       formControlName="roomTypes"
+                       nzPlaceHolder="Введите или выберите из списка"
+                       nzShowSearch="true"
+                       (nzOnSearch)="onRoomTypeSearch($event)">
+              <nz-option *ngFor="let option of roomTypeOptions" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+            </nz-select>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Период проведения</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <nz-range-picker
+              formControlName="date"
+              style="width: 350px"
+              nzPlaceHolder=" "
+              (ngModelChange)="onChange($event)">
+            </nz-range-picker>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div class="checkBox">
+        <label nz-checkbox [(ngModel)]="checked">Черновик</label>
+        <label nz-checkbox [(ngModel)]="checked">Утвержден</label>
+      </div>
+      <button class="__bnt" nz-button nzType="default" (click)="resetFilterForm(); $event.preventDefault()">Сбросить</button>
+      <button class="schedule-page__butn" nz-button nzType="primary">Применить фильтр</button>
+    </form>
+  </ng-template>
   <ng-container *ngIf="selectedIndex === 0">
     <app-timeline-card [cards]="cards" *ngIf="shouldDisplayCardComponent"></app-timeline-card>
   </ng-container>
   <ng-container *ngIf="selectedIndex === 1">
-      <app-table-schedule></app-table-schedule>
+    <app-table-schedule></app-table-schedule>
   </ng-container>
-
 </div>

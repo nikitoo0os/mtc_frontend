@@ -2,3 +2,16 @@
   padding: 4px;
   border-radius: 4px;
 }
+
+.ant-table-tbody {
+  > tr {
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #fafafa;
+    }
+  }
+}
+.info {
+  cursor: pointer;
+}

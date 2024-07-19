@@ -3,7 +3,7 @@
 }
 
 .applications-page {
-  margin: 2% 5%;
+  margin: 2% 2%;
   width: 100%;
 
   &__top {
@@ -16,6 +16,7 @@
   }
 
   &__controls {
+    position: relative;
     margin-bottom: 16px;
   }
   &__button {

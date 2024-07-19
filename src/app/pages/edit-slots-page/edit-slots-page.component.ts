@@ -11,8 +11,6 @@ import {LayoutComponent} from "../../ui-components/layout/layout.component";
 import {DatePipe, NgClass, NgForOf, registerLocaleData} from "@angular/common";
 import {NZ_I18N, NzI18nService, ru_RU} from "ng-zorro-antd/i18n";
 import ru from '@angular/common/locales/ru';
-import {ActivatedRoute} from "@angular/router";
-import {ItemTable} from "../../data/interfaces/ItemTable";
 
 registerLocaleData(ru);
 
@@ -41,8 +39,7 @@ registerLocaleData(ru);
 export class EditSlotsPageComponent implements OnInit {
   constructor(
     private i18n: NzI18nService,
-    private datePipe: DatePipe,
-    private route: ActivatedRoute
+    private datePipe: DatePipe
   ) {}
 
   isCollapsed = false;
@@ -50,9 +47,6 @@ export class EditSlotsPageComponent implements OnInit {
   startTime="Начало"
   endTime="Конец"
   date: any;
-  disabledHours(): number[] {
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 21, 22, 23];
-  }
   selectedValue: { specialist: string[]; type: string; location:string; specialistResources: string[]; number:string;typeResources:string} = {
     specialistResources: [],
     specialist: [],
@@ -61,9 +55,9 @@ export class EditSlotsPageComponent implements OnInit {
     number:'',
     typeResources:''
   };
+  value: any;
 
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.i18n.setLocale(ru_RU);
   }
   onChange(result: Date): void {
