@@ -8,6 +8,7 @@ import {
 } from "ng-zorro-antd/table";
 import {ItemTable} from "../../data/interfaces/ItemTable";
 import {NgForOf, NgIf, NgStyle} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-table-schedule',
@@ -20,7 +21,8 @@ import {NgForOf, NgIf, NgStyle} from "@angular/common";
     NgForOf,
     NzCellFixedDirective,
     NgIf,
-    NgStyle
+    NgStyle,
+    RouterLink
   ],
   templateUrl: './table-schedule.component.html',
   styleUrl: './table-schedule.component.scss'
@@ -53,6 +55,7 @@ export class TableScheduleComponent implements OnInit {
   ];
   listOfData: ItemTable[] = [
     {
+      id:'1',
       date: '12.12.2020',
       time: '12:00',
       typeEvent: 'Тип',
@@ -63,6 +66,7 @@ export class TableScheduleComponent implements OnInit {
       status: 'Черновик',
     },
     {
+      id:'2',
       date: '12.12.2020',
       time: '12:00',
       typeEvent: 'Тип',
@@ -73,6 +77,7 @@ export class TableScheduleComponent implements OnInit {
       status: 'Черновик',
     },
     {
+      id:'3',
       date: '12.12.2020',
       time: '12:00',
       typeEvent: 'Тип',

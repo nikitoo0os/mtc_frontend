@@ -15,9 +15,9 @@
     <div class="edit-slots-page__date-container">
       <p class="edit-slots-page__item">Дата проведения</p>
       <nz-date-picker [(ngModel)]="date" [nzPlaceHolder]="calendar" (ngModelChange)="onChange($event)"></nz-date-picker>
-      <nz-time-picker [nzHourStep]="1"  [nzPlaceHolder]="startTime" [nzMinuteStep]="30" [nzSecondStep]="60"></nz-time-picker>
+      <nz-time-picker [nzHourStep]="1"  [nzDisabledHours]="disabledHours" [nzPlaceHolder]="startTime" nzFormat="HH:mm" ></nz-time-picker>
       <div>——</div>
-      <nz-time-picker [nzHourStep]="1"  [nzPlaceHolder]="endTime" [nzMinuteStep]="30" [nzSecondStep]="60"></nz-time-picker>
+      <nz-time-picker [nzHourStep]="1"  [nzDisabledHours]="disabledHours" [nzPlaceHolder]="endTime" nzFormat="HH:mm" ></nz-time-picker>
     </div>
   </div>
 

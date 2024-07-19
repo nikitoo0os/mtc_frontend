@@ -14,6 +14,7 @@ import {NzPopoverDirective} from 'ng-zorro-antd/popover';
 import {NzWaveDirective} from "ng-zorro-antd/core/wave";
 import {NZ_I18N, NzI18nService, ru_RU} from "ng-zorro-antd/i18n";
 import ru from '@angular/common/locales/ru';
+import {TableApplicationsComponent} from "../../ui-components/table-applications/table-applications.component";
 
 registerLocaleData(ru);
 
@@ -37,8 +38,9 @@ registerLocaleData(ru);
     NzPopoverDirective,
     NgForOf,
     NzDatePickerComponent,
+    NzWaveDirective,
+    TableApplicationsComponent,
 
-    NzWaveDirective
   ],
   templateUrl: './applications-page.component.html',
   styleUrl: './applications-page.component.scss',

@@ -1,0 +1,47 @@
+:host {
+  display: flex;
+}
+
+.create-application-page {
+  margin: 2% 5%;
+  width: 100%;
+
+  &__top {
+    margin-bottom: 26px;
+  }
+  &__title {
+    font-size: 24px;
+    margin-bottom: 0;
+    font-weight: 600;
+  }
+  &__containerType{
+    display: flex;
+    gap: 20px;
+  }
+
+  &__type{
+    color: darkgrey;
+    width: 90px;
+    margin-bottom: 0;
+  }
+  &__item{
+    display: block;
+    margin-bottom: 0;
+  }
+  &__input{
+    width: 500px;
+  }
+  &__item{
+    margin-bottom: 5px;
+  }
+  &__btn{
+    margin-top: 65px;
+    position: absolute;
+    right: 50px;
+  }
+  &__switch{
+    display: flex;
+    gap: 20px;
+  }
+}
+

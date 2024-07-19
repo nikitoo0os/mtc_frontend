@@ -5,7 +5,7 @@ import {NzMenuDirective, NzMenuItemComponent, NzSubMenuComponent} from "ng-zorro
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {CommonModule} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
-import {RouterOutlet} from "@angular/router";
+import {RouterLink, RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-layout',
@@ -23,7 +23,8 @@ import {RouterOutlet} from "@angular/router";
     NzBreadCrumbComponent,
     NzButtonComponent,
     CommonModule,
-    RouterOutlet
+    RouterOutlet,
+    RouterLink
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
