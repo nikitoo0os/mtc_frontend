@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr class="info" *ngFor="let data of sortTable.data">
+  <tr class="info" *ngFor="let data of sortTable.data" [routerLink]="['/edit-slot-page']">
     <td>
       <div>{{ data.date }}</div>
       <div>{{ data.time }}</div>
