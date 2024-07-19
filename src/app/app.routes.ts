@@ -12,7 +12,7 @@ export const routes: Routes = [
   {path: 'schedule-page', component: SchedulePageComponent},
   {path: 'edit-slot-page', component: EditSlotsPageComponent},
   {path: 'applications-page', component: ApplicationsPageComponent},
-  {path: 'contacts-page', component: ContactInformationPageComponent},
+  {path: '', component: ContactInformationPageComponent},
   {path: 'create-application', component: CreateApplicationComponent},
   {path: 'login', component: LoginComponent}
 ];
